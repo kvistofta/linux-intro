@@ -77,7 +77,7 @@ nisse
 nisse@bettan:~$
 ```
 
-hostname`:
+`hostname`:
 ```shell
 nisse@bettan:~$ hostname
 bettan
@@ -151,30 +151,140 @@ So, there were a few files anyway. If we look at the man pages (more about that 
 
 ```
 
-All nisses files have names that begins with "." 
-# man pages
+All nisses files have names that begins with ".", that´s why there is no output from the ls command.
 
+Another option: `-l`:
+```shell
+nisse@bettan:~$ ls -l
+total 0
+nisse@bettan:~$
+```
 
+Again, no files. But this time we get a "summary" telling us a total of 0 files.
 
-# ls
-
-
-The first command you can try is `ls`:
-
-
-
-
-
-So it turned out that you have a few files already! 
-
-This is the first of an unlimited number of command options that can be added to different command. Which command options that are available for a specific command can be found in the help (more about that also, soon...).
-
-So, just `ls` list files. But adding a command option `-a` modifies the behaviour of the ls command. This is a snippet from the manual pages of the ls command:
+We can combine multiple options. Let´s run `ls -l -a`:
 
 ```shell
-       -a, --all
-              do not ignore entries starting with .
+nisse@bettan:~$ ls -l -a
+total 24
+drwxr-xr-x 3 nisse nisse 4096 Dec  2 13:57 .
+drwxr-xr-x 8 root  root  4096 Dec  2 13:50 ..
+-rw------- 1 nisse nisse  131 Dec  2 14:32 .bash_history
+-rw-rw-r-- 1 nisse nisse 3771 Dec  2 13:57 .bashrc
+drwxrwxr-x 3 nisse nisse 4096 Dec  2 13:57 .local
+-rw-rw-r-- 1 nisse nisse  807 Dec  2 13:57 .profile
+nisse@bettan:~$
 
 ```
 
-If you try to run `ls --all` you will see that the output is identical to `ls -a`.
+
+The conclusion we can make is that -l lists files differently than ls without -l. This is from the man pages about the -l option of the ls command:
+
+```shell
+      -l     use a long listing format
+```
+
+In the next session I will explain about how to find out which options are available for a certain command. 
+
+For ls and some other commands, the options can be stacked in different ways, giving the same result:
+* ls -l -a
+* ls -a -l
+* ls -la
+* ls -al
+
+# getting help
+
+So, how do we find out how a command works, which options we can add and what they mean?
+
+The answer is that there are several different ways do do that, and all ways doesn´t work all the time. First of all, we can search the internet. If I Google for "ls long listing option" I will get about 284.000.000 search results! :)
+
+## --help
+
+Often a certain command has an option `--help` that outputs how a command work, which options are available and more. `ls --help` gives the following output:
+
+``shell
+Usage: ls [OPTION]... [FILE]...
+List information about the FILEs (the current directory by default).
+Sort entries alphabetically if none of -cftuvSUX nor --sort is specified.
+
+Mandatory arguments to long options are mandatory for short options too.
+  -a, --all                            do not ignore entries starting with .
+  -A, --almost-all               do not list implied . and ..
+      --author                       with -l, print the author of each file
+  -b, --escape                    print C-style escapes for nongraphic characters
+  -B, --ignore-backups     do not list implied entries ending with ~
+.... many lines removed
+
+
+
+## man pages
+
+Another way to get help is to use the manual (remember: Read The Freaking Manual). In Linux the "manual" for all commands are built-in and is called "man pages". If you install a software that is not already installed in your Linux server, chances are good that the installation process also includes adding man pages for the application, to your system.
+
+The man pages can be summoned with the `man` command followed by a space and the command you want to read the man page for. For example `man ls`:
+
+The man pages are often several screen pages long and you can advance to the nex page with the space key. Sometimes you can also scroll the man pages line by line with the up/down arrow keys. To escape the man pages, press "q".
+
+# command parameters
+
+Besides command options that modifies the behaviour of a command, most command also have parameters. A parameter is normally an object-like item that the command needs to know.
+
+As an example, if we want to delete a file (the command is rm) we can´t just tell the system to run that command, but the command needs to know *which* file to delete.
+
+If we want to copy a file, the copy-command (it is called cp in Linux) needs two parameters: 
+1) What do you want to copy?
+2) Where should I put the copy?
+
+A third example: The ls command lists files. But in which directory? We can tell ls to list all files in the root directory of the file system with the command `ls /` and do we want to see all files in the /dev directory we run `ls /dev`. However the directory parameter of the ls command is optional, which means it is not required. Earlier we ran `ls -la` and since we didn´t specify a directory parameter it defaulted to list the files in the current directory. The directory parameter is not mandatory.
+
+command syntaxes
+
+When looking at the command syntax in man pager, except from explaining each parameter and option it also shows the syntax of the command. Here are a few example of command syntaxes from man pages:
+
+```
+gzip [ -acdfhklLnNrtvV19 ] [-S suffix] [ name ...  ]
+
+ls [OPTION]... [FILE]...
+
+  cp [OPTION]... [-T] SOURCE DEST
+```
+
+Sooner or later you will probably read man pages for some commands and I will explain how to interprete the strange texts above.
+
+Everything written inside of brackets are optional (not mandatory). That includes all the options for the ls command. Also file (directory to list files in) is optional.
+
+When there are tree dots "..." it means that you can enter more than one. You can list files in multiple directories with the ls command:
+
+```shell
+nisse@bettan:~$ ls /home/nisse /dev/dvd /var/log/account/
+/dev/dvd
+
+/home/nisse:
+
+/var/log/account/:
+pacct
+nisse@bettan:~$
+```
+
+However, parameters that are not within brackets, like "SOURCE" and "DEST" for the cp command, they are mandatory. 
+
+# command line navigation
+
+When entering a command, you can navigate thru your written command with the arrow keys. Also you can recall your last command with the up-arrow on your keyboard. This saves you a lot of keystrokes if you want to re-run the last command, or want to enter it again but modify it. 
+
+There are many special key strokes for the command line. The most common are:
+
+* CTRL-A moves the cursor to the beginning of the command.
+* CTRL-E moves the cursor to the end of the command.
+
+There is one more very useful key stroke for the Linux command line: CTRL-R. It is probably too early to try it right now but next week when you have entered hundreds of commands into the command line, you can go back to this section and try out CTRL-R.
+
+When you press CTRL-R, you will start a search among your previously written command. If you after the CTRL-R enters one or a few characters, the last command that contained that character sequence shows up and can be re-run again. This is very powerful when you enter long and complex commands. Try it, but later!
+
+Your "previous commands" is called command history and it is stored when you logout, so that you can, when logging back in again next monday use the up-arrow or CTRL-R to retreive those commands you wrote last week. "De e najs" as we say in Sweden. :)
+
+Logging out
+
+One good command to know is `exit`. It will log you out from your current session. If this is the end of the day you can `exit` now.
+
+
