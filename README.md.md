@@ -1,4 +1,3 @@
-README.md
 
 This is my personal Linux-notes taken from teaching Linux basics to students. If you find anything that should be corrected or added, please commit!
 
