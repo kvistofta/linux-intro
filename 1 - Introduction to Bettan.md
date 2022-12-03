@@ -283,7 +283,7 @@ When you press CTRL-R, you will start a search among your previously written com
 
 Your "previous commands" is called command history and it is stored when you logout, so that you can, when logging back in again next monday use the up-arrow or CTRL-R to retreive those commands you wrote last week. "De e najs" as we say in Sweden. :)
 
-Logging out
+# Logging out
 
 One good command to know is `exit`. It will log you out from your current session. If this is the end of the day you can `exit` now.
 
