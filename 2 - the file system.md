@@ -159,6 +159,12 @@ nisse@bettan:~$ tree
 nisse@bettan:~$
 ```
 
+# hidden files
+
+In DOS/Windows there is a specific file attribute that makes a file hidden. That concept does not exist in Linux. Per se there are no hidden files in Linux. However, there is an agreement between developers that a file whose first character in the name is . (a dot) should not normally be displayed. That´s why you wont see .ssh, .bash_history and more if you use `ls` but with `ls -l` those files are shown.
+
+You can simply "hide" a file by naming it with a dot in the beginning of a name. Simple but elegant.
+
 
 
 

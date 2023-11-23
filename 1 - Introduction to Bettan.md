@@ -8,6 +8,7 @@ You have been told to login to bettan using a ssh client. There are many differe
 
 As of 2022 when this is written, a built in ssh client is available in all Linux, Macs and even(!) windows OS:s. A few years ago there was not SSH client built into Windows but from Windows 10 (correct me if I am wrong) there is a CLI-based SSH-client built in. So the process of finding it is the same in all OS:es. You start up a terminal (Command prompt in Windows) and enter the command `ssh username@10.0.5.254`. You must replace "username" with the username provided to you. Next step, enter the password you have been given and you are logged in!
 
+
 ```shell
 Jimmys MbP ~ % ssh nisse@10.0.5.254
 =======================================================================
@@ -26,6 +27,9 @@ nisse
 nisse@10.0.5.254's password:
 nisse@bettan:~$
 ```
+
+*Note that you can, in theory, ommit ``nisse@``, given that you are logged in as exactly ``nisse`` on your client computer. That being said, if you are logged in into your client computer (probably your Windows laptop) as ``GandalfGrey`` and you connect using the command ``ssh 10.0.5.254`` the SSH client assumes that you want to login as exactly ``GandalfGrey`` on the SSH server.*
+
 
 >If nothing happens when you run the ssh-command it´s probably a network issue. You need to connect your VPN client first in order to reach Bettan. Can you ping 10.0.0.1? If not, troubleshoot VPN.
 
@@ -237,7 +241,7 @@ If we want to copy a file, the copy-command (it is called cp in Linux) needs two
 
 A third example: The ls command lists files. But in which directory? We can tell ls to list all files in the root directory of the file system with the command `ls /` and do we want to see all files in the /dev directory we run `ls /dev`. However the directory parameter of the ls command is optional, which means it is not required. Earlier we ran `ls -la` and since we didn´t specify a directory parameter it defaulted to list the files in the current directory. The directory parameter is not mandatory.
 
-command syntaxes
+## command syntaxes
 
 When looking at the command syntax in man pager, except from explaining each parameter and option it also shows the syntax of the command. Here are a few example of command syntaxes from man pages:
 
